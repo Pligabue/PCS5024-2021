@@ -17479,10 +17479,10 @@ dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[98]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">OrdinalEncoder</span>
 </pre></div>
 
      </div>
@@ -17493,13 +17493,13 @@ dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[82]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[136]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">categorical_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;workclass&#39;</span><span class="p">,</span> <span class="s1">&#39;education&#39;</span><span class="p">,</span> <span class="s1">&#39;marital-status&#39;</span><span class="p">,</span> <span class="s1">&#39;occupation&#39;</span><span class="p">,</span> <span class="s1">&#39;relationship&#39;</span><span class="p">,</span> <span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;native-country&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">categorical_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;workclass&#39;</span><span class="p">,</span> <span class="s1">&#39;education&#39;</span><span class="p">,</span> <span class="s1">&#39;marital-status&#39;</span><span class="p">,</span> <span class="s1">&#39;occupation&#39;</span><span class="p">,</span> <span class="s1">&#39;relationship&#39;</span><span class="p">,</span> <span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;native-country&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">]</span>
 
 <span class="n">categorical_adult_df</span> <span class="o">=</span> <span class="n">adult_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">categorical_adult_df</span> <span class="o">=</span> <span class="n">categorical_adult_df</span><span class="p">[</span><span class="n">categorical_names</span><span class="p">]</span>
+<span class="n">categorical_adult_df</span> <span class="o">=</span> <span class="n">categorical_adult_df</span><span class="p">[</span><span class="n">categorical_names</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">categorical_adult_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -17516,7 +17516,7 @@ dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[82]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[136]:</div>
 
 
 
@@ -17547,6 +17547,7 @@ dtype: float64</pre>
       <th>race</th>
       <th>sex</th>
       <th>native-country</th>
+      <th>class</th>
     </tr>
   </thead>
   <tbody>
@@ -17560,6 +17561,7 @@ dtype: float64</pre>
       <td>White</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>1</th>
@@ -17571,6 +17573,7 @@ dtype: float64</pre>
       <td>White</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>2</th>
@@ -17582,6 +17585,7 @@ dtype: float64</pre>
       <td>White</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>3</th>
@@ -17593,6 +17597,7 @@ dtype: float64</pre>
       <td>Black</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>4</th>
@@ -17604,6 +17609,7 @@ dtype: float64</pre>
       <td>Black</td>
       <td>Female</td>
       <td>Cuba</td>
+      <td>&lt;=50K</td>
     </tr>
   </tbody>
 </table>
@@ -17619,11 +17625,11 @@ dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[83]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[137]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">categorical_test_df</span> <span class="o">=</span> <span class="n">test_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">categorical_test_df</span> <span class="o">=</span> <span class="n">categorical_test_df</span><span class="p">[</span><span class="n">categorical_names</span><span class="p">]</span>
+<span class="n">categorical_test_df</span> <span class="o">=</span> <span class="n">categorical_test_df</span><span class="p">[</span><span class="n">categorical_names</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">categorical_test_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -17640,7 +17646,7 @@ dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[83]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[137]:</div>
 
 
 
@@ -17671,6 +17677,7 @@ dtype: float64</pre>
       <th>race</th>
       <th>sex</th>
       <th>native-country</th>
+      <th>class</th>
     </tr>
   </thead>
   <tbody>
@@ -17684,6 +17691,7 @@ dtype: float64</pre>
       <td>Black</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>1</th>
@@ -17695,6 +17703,7 @@ dtype: float64</pre>
       <td>White</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>2</th>
@@ -17706,6 +17715,7 @@ dtype: float64</pre>
       <td>White</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&gt;50K</td>
     </tr>
     <tr>
       <th>3</th>
@@ -17717,17 +17727,19 @@ dtype: float64</pre>
       <td>Black</td>
       <td>Male</td>
       <td>United-States</td>
+      <td>&gt;50K</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>NaN</td>
-      <td>Some-college</td>
+      <th>5</th>
+      <td>Private</td>
+      <td>10th</td>
       <td>Never-married</td>
-      <td>NaN</td>
-      <td>Own-child</td>
+      <td>Other-service</td>
+      <td>Not-in-family</td>
       <td>White</td>
-      <td>Female</td>
+      <td>Male</td>
       <td>United-States</td>
+      <td>&lt;=50K</td>
     </tr>
   </tbody>
 </table>
@@ -17743,16 +17755,18 @@ dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[84]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[138]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">categorical_adult_df</span><span class="p">:</span>
-    <span class="n">le</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">categorical_adult_df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-    <span class="n">categorical_adult_df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">categorical_adult_df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-    <span class="n">categorical_test_df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">categorical_test_df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oe</span> <span class="o">=</span> <span class="n">OrdinalEncoder</span><span class="p">()</span>
+
+<span class="n">oe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">categorical_adult_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;workclass&quot;</span><span class="p">:</span><span class="s2">&quot;native-country&quot;</span><span class="p">])</span>
+
+<span class="n">categorical_adult_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;workclass&quot;</span><span class="p">:</span><span class="s2">&quot;native-country&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">oe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">categorical_adult_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;workclass&quot;</span><span class="p">:</span><span class="s2">&quot;native-country&quot;</span><span class="p">])</span>
+<span class="n">categorical_test_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;workclass&quot;</span><span class="p">:</span><span class="s2">&quot;native-country&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">oe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">categorical_test_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;workclass&quot;</span><span class="p">:</span><span class="s2">&quot;native-country&quot;</span><span class="p">])</span>
     
-<span class="n">categorical_adult_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">categorical_adult_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">categorical_test_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -17768,11 +17782,11 @@ dtype: float64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[84]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -17799,63 +17813,174 @@ dtype: float64</pre>
       <th>race</th>
       <th>sex</th>
       <th>native-country</th>
+      <th>class</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>6</td>
-      <td>9</td>
-      <td>4</td>
-      <td>0</td>
-      <td>1</td>
-      <td>4</td>
-      <td>1</td>
-      <td>38</td>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>5</td>
-      <td>9</td>
-      <td>2</td>
-      <td>3</td>
-      <td>0</td>
-      <td>4</td>
-      <td>1</td>
-      <td>38</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>3</td>
-      <td>11</td>
-      <td>0</td>
-      <td>5</td>
-      <td>1</td>
-      <td>4</td>
-      <td>1</td>
-      <td>38</td>
+      <td>2.0</td>
+      <td>11.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>3</td>
-      <td>1</td>
-      <td>2</td>
-      <td>5</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>38</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&lt;=50K</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>3</td>
-      <td>9</td>
-      <td>2</td>
-      <td>9</td>
-      <td>5</td>
-      <td>2</td>
-      <td>0</td>
-      <td>4</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>&lt;=50K</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>workclass</th>
+      <th>education</th>
+      <th>marital-status</th>
+      <th>occupation</th>
+      <th>relationship</th>
+      <th>race</th>
+      <th>sex</th>
+      <th>native-country</th>
+      <th>class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&lt;=50K</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>11.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&lt;=50K</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>2.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&gt;50K</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.0</td>
+      <td>15.0</td>
+      <td>2.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&gt;50K</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>7.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>38.0</td>
+      <td>&lt;=50K</td>
     </tr>
   </tbody>
 </table>
@@ -17871,14 +17996,14 @@ dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[85]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[139]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">categorical_adult_df</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">adult_df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">categorical_adult_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;workclass&quot;</span><span class="p">:</span><span class="s2">&quot;native-country&quot;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">categorical_adult_df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
 
-<span class="n">test_X</span> <span class="o">=</span> <span class="n">categorical_test_df</span>
-<span class="n">test_y</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
+<span class="n">test_X</span> <span class="o">=</span> <span class="n">categorical_test_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;workclass&quot;</span><span class="p">:</span><span class="s2">&quot;native-country&quot;</span><span class="p">]</span>
+<span class="n">test_y</span> <span class="o">=</span> <span class="n">categorical_test_df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -17889,7 +18014,7 @@ dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[86]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[140]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cnb</span> <span class="o">=</span> <span class="n">CategoricalNB</span><span class="p">()</span>
@@ -17906,7 +18031,7 @@ dtype: float64</pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[87]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[141]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_stats</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">predicted_y</span><span class="p">)</span>
@@ -17931,10 +18056,10 @@ dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>TP     2828
-TN    10211
-FP     2224
-FN     1018
+<pre>TP    2738
+TN    9220
+FP    2140
+FN     962
 dtype: int64</pre>
 </div>
 
@@ -17949,10 +18074,10 @@ dtype: int64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>Precision    0.559778
-Recall       0.735309
-F1-score     0.635648
-Accuracy     0.800872
+<pre>Precision    0.561296
+Recall       0.740000
+F1-score     0.638377
+Accuracy     0.794024
 dtype: float64</pre>
 </div>
 
